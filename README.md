@@ -22,9 +22,9 @@ jpm install https://github.com/sogaiu/janet-pcg-random
 # => <pcgrand/rng 0x5570B7F0EF80>
 ```
 
-Please specify 4 32-bit integers [1].  These will represent 2 64-bit
-integers, which represent the state initializer and sequence selection
-constant (stream id) respectively.
+Please specify four non-negative 32-bit integers [1].  These will
+represent two 64-bit integers, which represent the state initializer
+and sequence selection constant (stream id) respectively.
 
 `pcgrand/random` returns a uniformly distributed 32-bit integer.
 
@@ -47,8 +47,8 @@ where 0 <= i < bound.
 # => 9
 ```
 
-`pcgrand/srandom` seeds a generator using 4 32-bit integers in a
-manner similar to `pcgrand/make`:
+`pcgrand/srandom` seeds a generator using four non-negative 32-bit
+integers in a manner similar to `pcgrand/make`:
 
 ```
 (def rng (pcgrand/make 0 1 0 1))
@@ -77,6 +77,7 @@ manner similar to `pcgrand/make`:
 ## Footnotes
 
 [1] IIUC, Janet's numbers don't allow specification of all 64-bit
-    integers in a straight-forward manner, so 2 32-bit integers are
-    used to fake it.  The first is used for the high order 32 bits and the
-    second is used for the low order 32 bits.
+    integers in a straight-forward manner, so a pair of non-negative
+    32-bit integers are used to fake it.  The first is used for the
+    high order 32 bits and the second is used for the low order 32
+    bits.
