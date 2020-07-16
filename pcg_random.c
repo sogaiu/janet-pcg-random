@@ -33,12 +33,12 @@ static Janet cfun_pcgrng_make(int32_t argc, Janet* argv) {
   janet_fixarity(argc, 4);
   pcg32_random_t* pcgrng =
     janet_abstract(&janet_pcgrng_type, sizeof(pcg32_random_t));
-  const uint32_t statehi = janet_getinteger(argv, 0);
-  const uint32_t statelo = janet_getinteger(argv, 1);
-  const uint32_t seqhi = janet_getinteger(argv, 2);
-  const uint32_t seqlo = janet_getinteger(argv, 3);
-  const uint64_t initstate = (((uint64_t)statehi) << 32) | statelo;
-  const uint64_t initseq = (((uint64_t)seqhi) << 32) | seqlo;
+  const uint64_t statehi = janet_getinteger64(argv, 0);
+  const uint64_t statelo = janet_getinteger64(argv, 1);
+  const uint64_t seqhi = janet_getinteger64(argv, 2);
+  const uint64_t seqlo = janet_getinteger64(argv, 3);
+  const uint64_t initstate = (statehi << 32) | (statelo & 0xFFFFFFFF);
+  const uint64_t initseq = (seqhi << 32) | (seqlo & 0xFFFFFFFF);
   pcg32_srandom_r(pcgrng, initstate, initseq);
   return janet_wrap_abstract(pcgrng);
 }
@@ -46,12 +46,12 @@ static Janet cfun_pcgrng_make(int32_t argc, Janet* argv) {
 static Janet cfun_srandom(int32_t argc, Janet* argv) {
   janet_fixarity(argc, 5);
   pcg32_random_t* pcgrng = janet_getabstract(argv, 0, &janet_pcgrng_type);
-  const uint32_t statehi = janet_getinteger(argv, 1);
-  const uint32_t statelo = janet_getinteger(argv, 2);
-  const uint32_t seqhi = janet_getinteger(argv, 3);
-  const uint32_t seqlo = janet_getinteger(argv, 4);
-  const uint64_t initstate = (((uint64_t)statehi) << 32) | statelo;
-  const uint64_t initseq = (((uint64_t)seqhi) << 32) | seqlo;
+  const uint64_t statehi = janet_getinteger64(argv, 0);
+  const uint64_t statelo = janet_getinteger64(argv, 1);
+  const uint64_t seqhi = janet_getinteger64(argv, 2);
+  const uint64_t seqlo = janet_getinteger64(argv, 3);
+  const uint64_t initstate = (statehi << 32) | (statelo & 0xFFFFFFFF);
+  const uint64_t initseq = (seqhi << 32) | (seqlo & 0xFFFFFFFF);
   pcg32_srandom_r(pcgrng, initstate, initseq);
   return janet_wrap_nil();
 }
