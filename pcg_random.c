@@ -30,15 +30,14 @@ const JanetAbstractType janet_pcgrng_type = {
 };
 
 static Janet cfun_pcgrng_make(int32_t argc, Janet* argv) {
-  janet_fixarity(argc, 4);
+  //janet_fixarity(argc, 4);
+  janet_fixarity(argc, 2);
   pcg32_random_t* pcgrng =
     janet_abstract(&janet_pcgrng_type, sizeof(pcg32_random_t));
-  const uint64_t statehi = janet_getinteger64(argv, 0);
-  const uint64_t statelo = janet_getinteger64(argv, 1);
-  const uint64_t seqhi = janet_getinteger64(argv, 2);
-  const uint64_t seqlo = janet_getinteger64(argv, 3);
-  const uint64_t initstate = (statehi << 32) | (statelo & 0xFFFFFFFF);
-  const uint64_t initseq = (seqhi << 32) | (seqlo & 0xFFFFFFFF);
+  void* abst0 = janet_unwrap_abstract(argv[0]);
+  const uint64_t initstate = *(uint64_t*) abst0;
+  void* abst1 = janet_unwrap_abstract(argv[1]);
+  const uint64_t initseq = *(uint64_t*) abst1;
   pcg32_srandom_r(pcgrng, initstate, initseq);
   return janet_wrap_abstract(pcgrng);
 }
@@ -46,12 +45,10 @@ static Janet cfun_pcgrng_make(int32_t argc, Janet* argv) {
 static Janet cfun_srandom(int32_t argc, Janet* argv) {
   janet_fixarity(argc, 5);
   pcg32_random_t* pcgrng = janet_getabstract(argv, 0, &janet_pcgrng_type);
-  const uint64_t statehi = janet_getinteger64(argv, 0);
-  const uint64_t statelo = janet_getinteger64(argv, 1);
-  const uint64_t seqhi = janet_getinteger64(argv, 2);
-  const uint64_t seqlo = janet_getinteger64(argv, 3);
-  const uint64_t initstate = (statehi << 32) | (statelo & 0xFFFFFFFF);
-  const uint64_t initseq = (seqhi << 32) | (seqlo & 0xFFFFFFFF);
+  void* abst0 = janet_unwrap_abstract(argv[0]);
+  const uint64_t initstate = *(uint64_t*) abst0;
+  void* abst1 = janet_unwrap_abstract(argv[1]);
+  const uint64_t initseq = *(uint64_t*) abst1;
   pcg32_srandom_r(pcgrng, initstate, initseq);
   return janet_wrap_nil();
 }
@@ -88,15 +85,13 @@ static const JanetReg cfuns[] = {
   {"make", cfun_pcgrng_make,
    "(pcgrand/make statehi statelo seqhi seqlo)\n\n"
    "Create a pcg random 32 rng.\n"
-   "Seed specified in four parts, state initializer (hi, lo) and a "
-   "sequence selection constant (hi, lo) (a.k.a. stream id).\n"
-   "Each of the four numbers will be interpreted as 32-bits."},
+   "Seed using two int/u64 values, state initializer and a "
+   "sequence selection constant (a.k.a. stream id).\n"},
   {"srandom", cfun_srandom,
    "(pcgrand/srandom rng statehi statelo seqhi seqlo)\n\n"
    "Seed the rng.\n"
-   "Seed specified in four parts, state initializer (hi, lo) and a "
-   "sequence selection constant (hi, lo) (a.k.a. stream id).\n"
-   "Each of the four numbers will be interpreted as 32-bits."},
+   "Seed using two int/u64 values, state initializer and a "
+   "sequence selection constant (a.k.a. stream id).\n"},
   {"random", cfun_random,
    "(pcgrand/random rng)\n\n"
    "Generate a uniformly distributed 32-bit random number."},
