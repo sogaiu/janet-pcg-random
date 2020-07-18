@@ -83,12 +83,12 @@ static int janet_pcgrng_get(void* p, Janet key, Janet* out) {
 
 static const JanetReg cfuns[] = {
   {"make", cfun_pcgrng_make,
-   "(pcgrand/make statehi statelo seqhi seqlo)\n\n"
-   "Create a pcg random 32 rng.\n"
+   "(pcgrand/make initstate initseq)\n\n"
+   "Create a pcg random 32 pseudorandom number generator.\n"
    "Seed using two int/u64 values, state initializer and a "
    "sequence selection constant (a.k.a. stream id).\n"},
   {"srandom", cfun_srandom,
-   "(pcgrand/srandom rng statehi statelo seqhi seqlo)\n\n"
+   "(pcgrand/srandom rng initstate initseq)\n\n"
    "Seed the rng.\n"
    "Seed using two int/u64 values, state initializer and a "
    "sequence selection constant (a.k.a. stream id).\n"},
