@@ -9,7 +9,6 @@
   :cflags   [;default-cflags
              "-Ipcg-c/include"
              "-std=c99" "-Wall" "-Wextra"]
-  :lflags [;default-ldflags]
   :headers ["pcg-c/include/pcg_variants.h"]
   :source ["pcg-c/src/pcg-advance-32.c"
            "pcg_random.c"])
