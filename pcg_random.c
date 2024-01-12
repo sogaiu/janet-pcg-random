@@ -42,12 +42,12 @@ static Janet cfun_pcgrng_make(int32_t argc, Janet* argv) {
 }
 
 static Janet cfun_srandom(int32_t argc, Janet* argv) {
-  janet_fixarity(argc, 5);
+  janet_fixarity(argc, 3);
   pcg32_random_t* pcgrng = janet_getabstract(argv, 0, &janet_pcgrng_type);
-  void* abst0 = janet_unwrap_abstract(argv[0]);
-  const uint64_t initstate = *(uint64_t*) abst0;
   void* abst1 = janet_unwrap_abstract(argv[1]);
-  const uint64_t initseq = *(uint64_t*) abst1;
+  const uint64_t initstate = *(uint64_t*) abst1;
+  void* abst2 = janet_unwrap_abstract(argv[2]);
+  const uint64_t initseq = *(uint64_t*) abst2;
   pcg32_srandom_r(pcgrng, initstate, initseq);
   return janet_wrap_nil();
 }
