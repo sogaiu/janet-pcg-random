@@ -30,7 +30,6 @@ const JanetAbstractType janet_pcgrng_type = {
 };
 
 static Janet cfun_pcgrng_make(int32_t argc, Janet* argv) {
-  //janet_fixarity(argc, 4);
   janet_fixarity(argc, 2);
   pcg32_random_t* pcgrng =
     janet_abstract(&janet_pcgrng_type, sizeof(pcg32_random_t));
