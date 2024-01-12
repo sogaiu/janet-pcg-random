@@ -1,5 +1,5 @@
 (declare-project
-  :name "PCG Random"
+  :name "pcgrand"
   :description "Janet bindings for PCG Random"
   :url "https://github.com/sogaiu/janet-pcg-random"
   :repo "git+https://github.com/sogaiu/janet-pcg-random")
