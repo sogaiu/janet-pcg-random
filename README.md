@@ -15,61 +15,82 @@ jpm install https://github.com/sogaiu/janet-pcg-random
 
 ## Usage
 
+Make module available:
+
+```janet
+(import pcgrand)
+```
+
 `pcgrand/make` creates a seeded generator instance:
 
-```
+```janet
 (pcgrand/make (int/u64 "1") (int/u64 "1"))
-# => <pcgrand/rng 0x5570B7F0EF80>
+# =>
+<pcgrand/rng 0x5570B7F0EF80>
 ```
 
 Use two `int/64` values to seed: the state initializer and sequence
 selection constant (stream id).
 
-`pcgrand/random` returns a uniformly distributed 32-bit integer.
+`pcgrand/random` returns a uniformly distributed 32-bit integer:
 
-```
-(def rng (pcgrand/make (int/u64 "1") (int/u64 "1")))
-# => <pcgrand/rng 0x55E021F18930>
+```janet
+(def rng
+  (pcgrand/make (int/u64 "1") (int/u64 "1")))
+# =>
+<pcgrand/rng 0x55E021F18930>
 
 (pcgrand/random rng)
-# => -914190447
+# =>
+-914190447
 
 (:random rng)
-# => 361947764
+# =>
+361947764
 ```
 
 `pcgrand/boundedrand` returns a uniformly distributed integer, i,
-where 0 <= i < bound.
+where 0 <= i < bound:
 
-```
-(def rng (pcgrand/make (int/u64 "1") (int/u64 "1")))
-# => <pcgrand/rng 0x55E021F1A3C0>
+```janet
+(def rng
+  (pcgrand/make (int/u64 "1") (int/u64 "1")))
+# =>
+<pcgrand/rng 0x55E021F1A3C0>
 
 (pcgrand/boundedrand rng 28)
-# => 9
+# =>
+9
 
 (:boundedrand rng 9)
-# => 2
+# =>
+2
 ```
 
 `pcgrand/srandom` seeds a generator using two `int/u64` values in a
 manner similar to `pcgrand/make`:
 
-```
-(def rng (pcgrand/make (int/u64 "1") (int/u64 "1")))
-# => <pcgrand/rng 0x55E021F1AFB0>
+```janet
+(def rng
+  (pcgrand/make (int/u64 "1") (int/u64 "1")))
+# =>
+<pcgrand/rng 0x55E021F1AFB0>
 
 (pcgrand/random rng)
-# => -914190447
+# =>
+-914190447
 
 (:random rng)
-# => 361947764
+# =>
+361947764
 
-(pcgrand/srandom rng 0 1 0 1)
-# => nil
+(pcgrand/srandom rng (int/u64 "1") (int/u64 "1"))
+# =>
+nil
 
 (:random rng)
-# => -914190447
+# =>
+-914190447
 ```
 
 ## Acknowledgments
