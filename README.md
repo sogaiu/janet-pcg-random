@@ -98,4 +98,5 @@ nil
 * andrewchambers - discussion, sample code
 * bakpakin - janet, sample code
 * cellularmitosis - documented sample code
+* imneme - pcg-random
 * pyrmont - documented sample code
