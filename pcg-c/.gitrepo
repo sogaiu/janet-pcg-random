@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/imneme/pcg-c
+	branch = master
+	commit = 83252d9c23df9c82ecb42210afed61a7b42402d7
+	parent = f5edb41ca568bd5a5063b513c4ef137411c01863
+	method = merge
+	cmdver = 0.4.8
