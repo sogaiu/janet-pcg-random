@@ -1,4 +1,4 @@
-(import pcgrand)
+(import ../build/pcgrand)
 
 (comment
 
